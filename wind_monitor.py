@@ -88,7 +88,7 @@ def main():
 
     # Assumption to verify: iWind speed is reported in km/h.
     # If it is km/h, convert to knots.
-    speed_knots = speed / 1.852
+    speed_knots = speed
 
     north = is_north(direction)
     state = load_state()
