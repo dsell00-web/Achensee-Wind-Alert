@@ -77,7 +77,7 @@ def send_telegram(message):
 def main():
     now = datetime.now(ZoneInfo("Europe/Vienna"))
 
-    if not (10 <= now.hour < 18):
+    if not (9 <= now.hour < 18):
         print("Outside alert hours")
         return
 
