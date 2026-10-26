@@ -97,7 +97,7 @@ def main():
 
       if north:
         state["north_count"] = min(state["north_count"] + 1, 2)
-    else:
+      else:
         state["north_count"] = 0
         state["north_alerted"] = False
         state["above_seven"] = False
