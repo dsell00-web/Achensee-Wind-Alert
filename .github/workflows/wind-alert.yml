@@ -1,14 +1,38 @@
-
 name: Achensee Wind Alert
 
 on:
- workflow_dispatch:
+  workflow_dispatch:
   schedule:
     - cron: '*/5 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: achensee-wind-monitor
+  cancel-in-progress: false
 
 jobs:
   wind-monitor:
     runs-on: ubuntu-latest
     steps:
-      - name: Prepare wind monitor
-        run: echo "Wind monitoring setup in progress"
+      - name: Download repository
+        uses: actions/checkout@v4
+
+      - name: Check wind conditions
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python wind_monitor.py
+
+      - name: Save wind alert state
+        run: |
+          if [ -f wind_state.json ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add wind_state.json
+            if ! git diff --cached --quiet; then
+              git commit -m "Update wind alert state"
+              git push
+            fi
+          fi
