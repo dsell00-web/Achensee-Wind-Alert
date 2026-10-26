@@ -95,12 +95,12 @@ def main():
 
     print(f"Direction: {direction}°, speed: {speed_knots:.1f} knots")
 
-    if north:
-    state["north_count"] = min(state["north_count"] + 1, 2)
-else:
-    state["north_count"] = 0
-    state["north_alerted"] = False
-    state["above_seven"] = False
+      if north:
+        state["north_count"] = min(state["north_count"] + 1, 2)
+    else:
+        state["north_count"] = 0
+        state["north_alerted"] = False
+        state["above_seven"] = False
 
     if north and state["north_count"] >= 2 and not state["north_alerted"]:
         send_telegram(
