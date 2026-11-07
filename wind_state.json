@@ -1,5 +1,5 @@
 {
-  "north_count": 2,
-  "north_alerted": true,
+  "north_count": 0,
+  "north_alerted": false,
   "above_seven": false
 }
